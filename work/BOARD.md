@@ -8,8 +8,8 @@ Execution index for `work/`. Rules in `work/README.md`.
 
 | State | Tasks |
 |---|---|
-| `open` | 26 |
-| `done` | 14 |
+| `open` | 25 |
+| `done` | 15 |
 | **total** | **40** |
 
 ## By area
@@ -18,7 +18,7 @@ Execution index for `work/`. Rules in `work/README.md`.
 |---|---|---|
 | `setup` | 2 | 2 |
 | `docs` | 3 | 2 |
-| `go` | 26 | 9 |
+| `go` | 26 | 10 |
 | `contract` | 1 | 0 |
 | `js` | 5 | 0 |
 | `ops` | 3 | 1 |
@@ -57,7 +57,7 @@ Execution index for `work/`. Rules in `work/README.md`.
 | Task | State | Area | Priority | Title |
 |---|---|---|---|---|
 | [VYQ-18](tasks/VYQ-3/VYQ-18-slugerror-common-errors.md) | `done` | `go` | major | [go] SlugError in internal/common/errors |
-| [VYQ-19](tasks/VYQ-3/VYQ-19-command-and-query-decorators.md) | `open` | `go` | major | [go] Command and query decorators |
+| [VYQ-19](tasks/VYQ-3/VYQ-19-command-and-query-decorators.md) | `done` | `go` | major | [go] Command and query decorators |
 | [VYQ-20](tasks/VYQ-3/VYQ-20-command-shorten-link.md) | `done` | `go` | critical | [go] command ShortenLink |
 | [VYQ-21](tasks/VYQ-3/VYQ-21-query-resolve-link.md) | `done` | `go` | critical | [go] query ResolveLink |
 | [VYQ-22](tasks/VYQ-3/VYQ-22-recordclick-delete-get-stats.md) | `done` | `go` | major | [go] RecordClick, DeleteLink, GetLink, LinkStats |
