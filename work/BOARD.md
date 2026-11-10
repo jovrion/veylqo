@@ -8,8 +8,8 @@ Execution index for `work/`. Rules in `work/README.md`.
 
 | State | Tasks |
 |---|---|
-| `open` | 25 |
-| `done` | 15 |
+| `open` | 24 |
+| `done` | 16 |
 | **total** | **40** |
 
 ## By area
@@ -18,7 +18,7 @@ Execution index for `work/`. Rules in `work/README.md`.
 |---|---|---|
 | `setup` | 2 | 2 |
 | `docs` | 3 | 2 |
-| `go` | 26 | 10 |
+| `go` | 26 | 11 |
 | `contract` | 1 | 0 |
 | `js` | 5 | 0 |
 | `ops` | 3 | 1 |
@@ -52,7 +52,7 @@ Execution index for `work/`. Rules in `work/README.md`.
 ## VYQ-3 — F2 — Application
 
 - File: [epics/VYQ-3-f2-application.md](epics/VYQ-3-f2-application.md)
-- Derived status: `in-progress`
+- Derived status: `done`
 
 | Task | State | Area | Priority | Title |
 |---|---|---|---|---|
@@ -61,7 +61,7 @@ Execution index for `work/`. Rules in `work/README.md`.
 | [VYQ-20](tasks/VYQ-3/VYQ-20-command-shorten-link.md) | `done` | `go` | critical | [go] command ShortenLink |
 | [VYQ-21](tasks/VYQ-3/VYQ-21-query-resolve-link.md) | `done` | `go` | critical | [go] query ResolveLink |
 | [VYQ-22](tasks/VYQ-3/VYQ-22-recordclick-delete-get-stats.md) | `done` | `go` | major | [go] RecordClick, DeleteLink, GetLink, LinkStats |
-| [VYQ-23](tasks/VYQ-3/VYQ-23-app-application-commands-queries.md) | `open` | `go` | major | [go] app.Application Commands and Queries |
+| [VYQ-23](tasks/VYQ-3/VYQ-23-app-application-commands-queries.md) | `done` | `go` | major | [go] app.Application Commands and Queries |
 
 ## VYQ-4 — F3 — Adapters
 
