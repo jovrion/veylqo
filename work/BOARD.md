@@ -8,8 +8,8 @@ Execution index for `work/`. Rules in `work/README.md`.
 
 | State | Tasks |
 |---|---|
-| `open` | 34 |
-| `done` | 6 |
+| `open` | 33 |
+| `done` | 7 |
 | **total** | **40** |
 
 ## By area
@@ -18,7 +18,7 @@ Execution index for `work/`. Rules in `work/README.md`.
 |---|---|---|
 | `setup` | 2 | 2 |
 | `docs` | 3 | 2 |
-| `go` | 26 | 1 |
+| `go` | 26 | 2 |
 | `contract` | 1 | 0 |
 | `js` | 5 | 0 |
 | `ops` | 3 | 1 |
@@ -40,11 +40,11 @@ Execution index for `work/`. Rules in `work/README.md`.
 ## VYQ-2 — F1 — Domain
 
 - File: [epics/VYQ-2-f1-domain.md](epics/VYQ-2-f1-domain.md)
-- Derived status: `open`
+- Derived status: `in-progress`
 
 | Task | State | Area | Priority | Title |
 |---|---|---|---|---|
-| [VYQ-14](tasks/VYQ-2/VYQ-14-code-value-object.md) | `open` | `go` | critical | [go] Code value object |
+| [VYQ-14](tasks/VYQ-2/VYQ-14-code-value-object.md) | `done` | `go` | critical | [go] Code value object |
 | [VYQ-15](tasks/VYQ-2/VYQ-15-destination-value-object.md) | `open` | `go` | critical | [go] Destination value object |
 | [VYQ-16](tasks/VYQ-2/VYQ-16-domain-cleaner-service.md) | `open` | `go` | major | [go] Domain Cleaner service |
 | [VYQ-17](tasks/VYQ-2/VYQ-17-link-entity-and-repository-ports.md) | `open` | `go` | critical | [go] Link entity and repository ports |
