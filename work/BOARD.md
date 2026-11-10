@@ -8,8 +8,8 @@ Execution index for `work/`. Rules in `work/README.md`.
 
 | State | Tasks |
 |---|---|
-| `open` | 36 |
-| `done` | 4 |
+| `open` | 35 |
+| `done` | 5 |
 | **total** | **40** |
 
 ## By area
@@ -18,7 +18,7 @@ Execution index for `work/`. Rules in `work/README.md`.
 |---|---|---|
 | `setup` | 2 | 2 |
 | `docs` | 3 | 2 |
-| `go` | 26 | 0 |
+| `go` | 26 | 1 |
 | `contract` | 1 | 0 |
 | `js` | 5 | 0 |
 | `ops` | 3 | 0 |
@@ -34,7 +34,7 @@ Execution index for `work/`. Rules in `work/README.md`.
 | [VYQ-9](tasks/VYQ-1/VYQ-9-adrs-0001-0011-madr-format.md) | `done` | `docs` | critical | [docs] ADRs 0001–0011 in MADR format |
 | [VYQ-10](tasks/VYQ-1/VYQ-10-docs-architecture-md.md) | `done` | `docs` | major | [docs] docs/architecture.md |
 | [VYQ-11](tasks/VYQ-1/VYQ-11-gomod-license-makefile-build.md) | `done` | `setup` | critical | [setup] go.mod 1.27, MIT LICENSE, and build Makefile |
-| [VYQ-12](tasks/VYQ-1/VYQ-12-archtest-layers-and-stdlib-only.md) | `open` | `go` | critical | [go] archtest for layers and stdlib-only |
+| [VYQ-12](tasks/VYQ-1/VYQ-12-archtest-layers-and-stdlib-only.md) | `done` | `go` | critical | [go] archtest for layers and stdlib-only |
 | [VYQ-13](tasks/VYQ-1/VYQ-13-github-actions-ci.md) | `open` | `ops` | major | [ops] GitHub Actions CI |
 
 ## VYQ-2 — F1 — Domain
