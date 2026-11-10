@@ -1,5 +1,5 @@
-// Package link holds link domain types. Code is the public identifier.
-// The link entity and its rehydration arrive with a later task.
+// Package link holds link domain types. The link entity and its
+// rehydration arrive with a later task.
 package link
 
 import (
