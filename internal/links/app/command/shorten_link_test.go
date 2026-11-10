@@ -255,7 +255,9 @@ func TestShorten(t *testing.T) {
 			Destination: "https://example.com/a",
 			CreatedAt:   now.Add(-time.Minute),
 		})
-		repo.Add(context.Background(), winner)
+		if err := repo.Add(context.Background(), winner); err != nil {
+			t.Fatal(err)
+		}
 		repo.adds = 0
 		repo.hideDestination = true
 		h := handler(t, repo, &seqCodes{codes: []string{"Bc4yzA8"}}, clock, "example.com")

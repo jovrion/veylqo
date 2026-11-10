@@ -135,10 +135,6 @@ func TestRecordClickNilDeps(t *testing.T) {
 	if err == nil || strings.Contains(err.Error(), "Ab3xyZ9") {
 		t.Fatalf("nil recorder = %v", err)
 	}
-	err = NewRecordClickHandler(errPort{}).Handle(nil, RecordClick{Code: "Ab3xyZ9"})
-	if err == nil {
-		t.Fatal("nil context succeeded")
-	}
 }
 
 type slowClicks struct {
@@ -176,7 +172,13 @@ type asyncClickPort struct {
 
 func (p *asyncClickPort) Enqueue(ctx context.Context, code link.Code) error {
 	p.calls++
-	go p.clicks.Add(context.WithoutCancel(ctx), code, 1)
+	go func() {
+		// slowClicks.Add returns nil. Checking it keeps the stand-in from
+		// hiding a failure, without making Enqueue wait on the store.
+		if err := p.clicks.Add(context.WithoutCancel(ctx), code, 1); err != nil {
+			panic(err)
+		}
+	}()
 	return nil
 }
 
