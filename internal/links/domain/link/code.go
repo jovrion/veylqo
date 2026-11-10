@@ -1,5 +1,5 @@
-// Package link holds link domain types. The link entity and its
-// rehydration arrive with a later task.
+// Package link holds the link entity, its value objects, and the
+// repository interfaces adapters implement. It does not import HTTP or SQL.
 package link
 
 import (
