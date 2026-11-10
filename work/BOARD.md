@@ -8,8 +8,8 @@ Execution index for `work/`. Rules in `work/README.md`.
 
 | State | Tasks |
 |---|---|
-| `open` | 35 |
-| `done` | 5 |
+| `open` | 34 |
+| `done` | 6 |
 | **total** | **40** |
 
 ## By area
@@ -21,12 +21,12 @@ Execution index for `work/`. Rules in `work/README.md`.
 | `go` | 26 | 1 |
 | `contract` | 1 | 0 |
 | `js` | 5 | 0 |
-| `ops` | 3 | 0 |
+| `ops` | 3 | 1 |
 
 ## VYQ-1 — F0 — Governance and repo foundation
 
 - File: [epics/VYQ-1-f0-governance-and-repo-foundation.md](epics/VYQ-1-f0-governance-and-repo-foundation.md)
-- Derived status: `in-progress`
+- Derived status: `done`
 
 | Task | State | Area | Priority | Title |
 |---|---|---|---|---|
@@ -35,7 +35,7 @@ Execution index for `work/`. Rules in `work/README.md`.
 | [VYQ-10](tasks/VYQ-1/VYQ-10-docs-architecture-md.md) | `done` | `docs` | major | [docs] docs/architecture.md |
 | [VYQ-11](tasks/VYQ-1/VYQ-11-gomod-license-makefile-build.md) | `done` | `setup` | critical | [setup] go.mod 1.27, MIT LICENSE, and build Makefile |
 | [VYQ-12](tasks/VYQ-1/VYQ-12-archtest-layers-and-stdlib-only.md) | `done` | `go` | critical | [go] archtest for layers and stdlib-only |
-| [VYQ-13](tasks/VYQ-1/VYQ-13-github-actions-ci.md) | `open` | `ops` | major | [ops] GitHub Actions CI |
+| [VYQ-13](tasks/VYQ-1/VYQ-13-github-actions-ci.md) | `done` | `ops` | major | [ops] GitHub Actions CI |
 
 ## VYQ-2 — F1 — Domain
 

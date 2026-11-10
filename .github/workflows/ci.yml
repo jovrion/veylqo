@@ -1,0 +1,79 @@
+# CI for the Go module and the work board.
+# Dev tools are installed in the job. They are not module dependencies
+# (ADR-0003): no tool directive, no go get into go.mod.
+
+name: ci
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7.0.1
+
+      - name: Set up Go
+        uses: actions/setup-go@v7.0.0
+        with:
+          go-version-file: go.mod
+          # No go.sum until a driver task adds a require.
+          cache: false
+
+      - name: gofmt
+        run: |
+          unformatted=$(gofmt -l .)
+          if [ -n "$unformatted" ]; then
+            printf '%s\n' "$unformatted"
+            echo "gofmt -l: files above are not formatted"
+            exit 1
+          fi
+
+      - name: go vet
+        run: go vet ./...
+
+      - name: go test
+        run: go test ./...
+
+      - name: work-validate
+        run: make work-validate
+
+      - name: Install golangci-lint
+        # Binary release. go install / go get / tool would couple the
+        # linter to the module, which ADR-0003 forbids.
+        run: curl -sSfL https://golangci-lint.run/install.sh | sh -s -- -b "$(go env GOPATH)/bin" v2.15.0
+
+      - name: golangci-lint
+        run: golangci-lint run
+
+      - name: Install govulncheck
+        # go install pkg@version does not edit the current module.
+        # The temp directory keeps the install out of this go.mod.
+        run: |
+          cd "$(mktemp -d)"
+          go install golang.org/x/vuln/cmd/govulncheck@v1.9.0
+
+      - name: govulncheck
+        run: govulncheck ./...
+
+      - name: go.mod has no tool directive
+        run: |
+          if grep -n '^tool ' go.mod; then
+            echo "tool directive is forbidden (ADR-0003)"
+            exit 1
+          fi
+          git diff --exit-code -- go.mod
+          if [ -f go.sum ]; then
+            echo "CI must not create go.sum"
+            exit 1
+          fi

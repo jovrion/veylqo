@@ -11,6 +11,7 @@ import (
 	"go/token"
 	"os"
 	"path/filepath"
+	"slices"
 	"strconv"
 	"strings"
 )
@@ -210,12 +211,16 @@ func parseImports(filename string, testFile bool) ([]scannedImport, error) {
 
 // taggedIgnore reports whether the file is excluded by a build tag of
 // "ignore". Those files are not production code.
-func taggedIgnore(path string) (bool, error) {
+func taggedIgnore(path string) (ignored bool, err error) {
 	file, err := os.Open(path)
 	if err != nil {
 		return false, err
 	}
-	defer file.Close()
+	defer func() {
+		if cerr := file.Close(); cerr != nil && err == nil {
+			err = cerr
+		}
+	}()
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		line := strings.TrimSpace(scanner.Text())
@@ -224,17 +229,16 @@ func taggedIgnore(path string) (bool, error) {
 			continue
 		}
 		if isBuild {
-			for _, field := range strings.FieldsFunc(line, func(r rune) bool {
+			fields := strings.FieldsFunc(line, func(r rune) bool {
 				switch r {
 				case ' ', '\t', '&', '|', '!', '(', ')':
 					return true
 				default:
 					return false
 				}
-			}) {
-				if field == "ignore" {
-					return true, nil
-				}
+			})
+			if slices.Contains(fields, "ignore") {
+				return true, nil
 			}
 			continue
 		}
