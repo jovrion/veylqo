@@ -8,8 +8,8 @@ Execution index for `work/`. Rules in `work/README.md`.
 
 | State | Tasks |
 |---|---|
-| `open` | 23 |
-| `done` | 17 |
+| `open` | 22 |
+| `done` | 18 |
 | **total** | **40** |
 
 ## By area
@@ -18,7 +18,7 @@ Execution index for `work/`. Rules in `work/README.md`.
 |---|---|---|
 | `setup` | 2 | 2 |
 | `docs` | 3 | 2 |
-| `go` | 26 | 12 |
+| `go` | 26 | 13 |
 | `contract` | 1 | 0 |
 | `js` | 5 | 0 |
 | `ops` | 3 | 1 |
@@ -71,7 +71,7 @@ Execution index for `work/`. Rules in `work/README.md`.
 | Task | State | Area | Priority | Title |
 |---|---|---|---|---|
 | [VYQ-24](tasks/VYQ-4/VYQ-24-memory-repository-shared-suite.md) | `done` | `go` | critical | [go] In-memory repository and shared suite |
-| [VYQ-25](tasks/VYQ-4/VYQ-25-embedded-migrations.md) | `open` | `go` | major | [go] Embedded migrations |
+| [VYQ-25](tasks/VYQ-4/VYQ-25-embedded-migrations.md) | `done` | `go` | major | [go] Embedded migrations |
 | [VYQ-26](tasks/VYQ-4/VYQ-26-sqlite-repository.md) | `open` | `go` | critical | [go] SQLite repository |
 | [VYQ-27](tasks/VYQ-4/VYQ-27-postgres-repository.md) | `open` | `go` | critical | [go] Postgres repository |
 | [VYQ-28](tasks/VYQ-4/VYQ-28-click-batcher.md) | `open` | `go` | major | [go] click_batcher |
