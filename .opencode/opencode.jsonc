@@ -1,0 +1,23 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "github-copilot/grok-4.7",
+  "default_agent": "builder-go",
+  "permissions": [
+    { "action": "shell", "resource": "*", "effect": "ask" },
+    { "action": "shell", "resource": "make work-*", "effect": "allow" },
+    { "action": "shell", "resource": "python3 scripts/work.py *", "effect": "allow" },
+    { "action": "shell", "resource": "git status *", "effect": "allow" },
+    { "action": "shell", "resource": "git diff *", "effect": "allow" },
+    { "action": "shell", "resource": "git log *", "effect": "allow" }
+  ],
+  "agents": {
+    "plan": { "disabled": true },
+    "g-planner": { "disabled": true },
+    "g-researcher": { "disabled": true },
+    "g-builder": { "disabled": true },
+    "g-debugger": { "disabled": true },
+    "general": { "model": "github-copilot/gpt-6-luna" },
+    "explore": { "model": "github-copilot/gemini-3.8-flash" },
+    "title": { "model": "github-copilot/mai-code-1.1-flash" }
+  }
+}

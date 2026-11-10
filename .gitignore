@@ -1,0 +1,18 @@
+# Secrets and local environment — never commit
+.env
+*.local
+
+# Go
+/bin/
+*.test
+*.out
+
+# Generated board (regenerate with `make work-view`)
+work/board.html
+
+# Python
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
