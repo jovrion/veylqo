@@ -8,8 +8,8 @@ Execution index for `work/`. Rules in `work/README.md`.
 
 | State | Tasks |
 |---|---|
-| `open` | 24 |
-| `done` | 16 |
+| `open` | 23 |
+| `done` | 17 |
 | **total** | **40** |
 
 ## By area
@@ -18,7 +18,7 @@ Execution index for `work/`. Rules in `work/README.md`.
 |---|---|---|
 | `setup` | 2 | 2 |
 | `docs` | 3 | 2 |
-| `go` | 26 | 11 |
+| `go` | 26 | 12 |
 | `contract` | 1 | 0 |
 | `js` | 5 | 0 |
 | `ops` | 3 | 1 |
@@ -66,11 +66,11 @@ Execution index for `work/`. Rules in `work/README.md`.
 ## VYQ-4 — F3 — Adapters
 
 - File: [epics/VYQ-4-f3-adapters.md](epics/VYQ-4-f3-adapters.md)
-- Derived status: `open`
+- Derived status: `in-progress`
 
 | Task | State | Area | Priority | Title |
 |---|---|---|---|---|
-| [VYQ-24](tasks/VYQ-4/VYQ-24-memory-repository-shared-suite.md) | `open` | `go` | critical | [go] In-memory repository and shared suite |
+| [VYQ-24](tasks/VYQ-4/VYQ-24-memory-repository-shared-suite.md) | `done` | `go` | critical | [go] In-memory repository and shared suite |
 | [VYQ-25](tasks/VYQ-4/VYQ-25-embedded-migrations.md) | `open` | `go` | major | [go] Embedded migrations |
 | [VYQ-26](tasks/VYQ-4/VYQ-26-sqlite-repository.md) | `open` | `go` | critical | [go] SQLite repository |
 | [VYQ-27](tasks/VYQ-4/VYQ-27-postgres-repository.md) | `open` | `go` | critical | [go] Postgres repository |
