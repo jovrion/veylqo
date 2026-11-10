@@ -36,7 +36,7 @@ func (e *InvalidDestinationError) Error() string {
 func (e *InvalidDestinationError) Unwrap() error { return ErrInvalidDestination }
 
 // Destination is a normalized http(s) URL. The fragment is not stored.
-// Tracking-parameter stripping is the cleaner (VYQ-16), not this type.
+// Tracking-parameter stripping is Clean, not this type.
 // The zero value is invalid and must not be stored.
 type Destination struct {
 	value string
