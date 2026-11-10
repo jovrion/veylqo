@@ -8,15 +8,15 @@ Execution index for `work/`. Rules in `work/README.md`.
 
 | State | Tasks |
 |---|---|
-| `open` | 37 |
-| `done` | 3 |
+| `open` | 36 |
+| `done` | 4 |
 | **total** | **40** |
 
 ## By area
 
 | Area | Tasks | Done |
 |---|---|---|
-| `setup` | 2 | 1 |
+| `setup` | 2 | 2 |
 | `docs` | 3 | 2 |
 | `go` | 26 | 0 |
 | `contract` | 1 | 0 |
@@ -33,7 +33,7 @@ Execution index for `work/`. Rules in `work/README.md`.
 | [VYQ-8](tasks/VYQ-1/VYQ-8-work-tracking-and-opencode-config.md) | `done` | `setup` | critical | [setup] work/ tracking and OpenCode config |
 | [VYQ-9](tasks/VYQ-1/VYQ-9-adrs-0001-0011-madr-format.md) | `done` | `docs` | critical | [docs] ADRs 0001–0011 in MADR format |
 | [VYQ-10](tasks/VYQ-1/VYQ-10-docs-architecture-md.md) | `done` | `docs` | major | [docs] docs/architecture.md |
-| [VYQ-11](tasks/VYQ-1/VYQ-11-gomod-license-makefile-build.md) | `open` | `setup` | critical | [setup] go.mod 1.27, MIT LICENSE, and build Makefile |
+| [VYQ-11](tasks/VYQ-1/VYQ-11-gomod-license-makefile-build.md) | `done` | `setup` | critical | [setup] go.mod 1.27, MIT LICENSE, and build Makefile |
 | [VYQ-12](tasks/VYQ-1/VYQ-12-archtest-layers-and-stdlib-only.md) | `open` | `go` | critical | [go] archtest for layers and stdlib-only |
 | [VYQ-13](tasks/VYQ-1/VYQ-13-github-actions-ci.md) | `open` | `ops` | major | [ops] GitHub Actions CI |
 

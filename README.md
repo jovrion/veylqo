@@ -7,6 +7,24 @@ standard library first. The JS SDK lives in
 This repository is early. Product code lands through the board in
 `work/`; a task describes intent, not a feature that already exists.
 
+## Clone
+
+```
+git clone https://github.com/jovrion/veylqo.git
+cd veylqo
+```
+
+The Go module is `github.com/jovrion/veylqo` (`go 1.27`). There is no
+service binary yet. Board commands need only Python 3 from the standard
+library.
+
+```
+make fmt     # gofmt -s -w .
+make vet     # go vet ./... (no-op until a package exists)
+make test    # go test ./... (no-op until a package exists)
+make build   # go build ./... (no-op until a package exists)
+```
+
 ## How work is tracked
 
 ```
@@ -22,4 +40,4 @@ OpenCode: `/work-next`, `/work-start`, `/work-done`.
 
 ## License
 
-MIT. See `LICENSE` (added with VYQ-11).
+MIT. See `LICENSE`.
