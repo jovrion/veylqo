@@ -405,6 +405,10 @@ func slugSentinel(slug apperrors.Slug) error {
 	switch slug {
 	case apperrors.IncorrectInput:
 		return apperrors.NewIncorrectInput("", nil)
+	case apperrors.NotFound:
+		return apperrors.NewNotFound("", nil)
+	case apperrors.Gone:
+		return apperrors.NewGone("", nil)
 	case apperrors.Conflict:
 		return apperrors.NewConflict("", nil)
 	default:
