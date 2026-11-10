@@ -8,8 +8,8 @@ Execution index for `work/`. Rules in `work/README.md`.
 
 | State | Tasks |
 |---|---|
-| `open` | 30 |
-| `done` | 10 |
+| `open` | 29 |
+| `done` | 11 |
 | **total** | **40** |
 
 ## By area
@@ -18,7 +18,7 @@ Execution index for `work/`. Rules in `work/README.md`.
 |---|---|---|
 | `setup` | 2 | 2 |
 | `docs` | 3 | 2 |
-| `go` | 26 | 5 |
+| `go` | 26 | 6 |
 | `contract` | 1 | 0 |
 | `js` | 5 | 0 |
 | `ops` | 3 | 1 |
@@ -52,11 +52,11 @@ Execution index for `work/`. Rules in `work/README.md`.
 ## VYQ-3 — F2 — Application
 
 - File: [epics/VYQ-3-f2-application.md](epics/VYQ-3-f2-application.md)
-- Derived status: `open`
+- Derived status: `in-progress`
 
 | Task | State | Area | Priority | Title |
 |---|---|---|---|---|
-| [VYQ-18](tasks/VYQ-3/VYQ-18-slugerror-common-errors.md) | `open` | `go` | major | [go] SlugError in internal/common/errors |
+| [VYQ-18](tasks/VYQ-3/VYQ-18-slugerror-common-errors.md) | `done` | `go` | major | [go] SlugError in internal/common/errors |
 | [VYQ-19](tasks/VYQ-3/VYQ-19-command-and-query-decorators.md) | `open` | `go` | major | [go] Command and query decorators |
 | [VYQ-20](tasks/VYQ-3/VYQ-20-command-shorten-link.md) | `open` | `go` | critical | [go] command ShortenLink |
 | [VYQ-21](tasks/VYQ-3/VYQ-21-query-resolve-link.md) | `open` | `go` | critical | [go] query ResolveLink |
