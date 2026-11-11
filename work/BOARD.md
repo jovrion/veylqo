@@ -8,8 +8,8 @@ Execution index for `work/`. Rules in `work/README.md`.
 
 | State | Tasks |
 |---|---|
-| `open` | 17 |
-| `done` | 24 |
+| `open` | 16 |
+| `done` | 25 |
 | **total** | **41** |
 
 ## By area
@@ -18,7 +18,7 @@ Execution index for `work/`. Rules in `work/README.md`.
 |---|---|---|
 | `setup` | 2 | 2 |
 | `docs` | 3 | 2 |
-| `go` | 27 | 19 |
+| `go` | 27 | 20 |
 | `contract` | 1 | 0 |
 | `js` | 5 | 0 |
 | `ops` | 3 | 1 |
@@ -82,12 +82,12 @@ Execution index for `work/`. Rules in `work/README.md`.
 ## VYQ-5 — F4 — Ports and contract
 
 - File: [epics/VYQ-5-f4-ports-and-contract.md](epics/VYQ-5-f4-ports-and-contract.md)
-- Derived status: `open`
+- Derived status: `in-progress`
 
 | Task | State | Area | Priority | Title |
 |---|---|---|---|---|
 | [VYQ-31](tasks/VYQ-5/VYQ-31-openapi-veylqo-json.md) | `open` | `contract` | critical | [contract] OpenAPI 3.1 api/openapi/veylqo.json |
-| [VYQ-32](tasks/VYQ-5/VYQ-32-httpx-jsonv2-problem-json.md) | `open` | `go` | critical | [go] httpx: json/v2 and problem+json |
+| [VYQ-32](tasks/VYQ-5/VYQ-32-httpx-jsonv2-problem-json.md) | `done` | `go` | critical | [go] httpx: json/v2 and problem+json |
 | [VYQ-33](tasks/VYQ-5/VYQ-33-http-api-ports.md) | `open` | `go` | critical | [go] HTTP API ports |
 | [VYQ-34](tasks/VYQ-5/VYQ-34-get-code-redirect-302.md) | `open` | `go` | critical | [go] GET /{code} 302 redirect |
 | [VYQ-35](tasks/VYQ-5/VYQ-35-cors-rate-limit-and-keys.md) | `open` | `go` | major | [go] CORS, rate limit, and keys |

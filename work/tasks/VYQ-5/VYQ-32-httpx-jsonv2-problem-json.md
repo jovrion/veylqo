@@ -2,13 +2,13 @@
 id: VYQ-32
 type: task
 title: "[go] httpx: json/v2 and problem+json"
-status: "open"
+status: "done"
 priority: "critical"
 area: "go"
 epic: VYQ-5
 depends_on: [VYQ-18]
 blocked_reason: null
-updated: 2026-11-09
+updated: 2026-11-11
 ---
 
 # VYQ-32 — [go] httpx: json/v2 and problem+json
@@ -21,10 +21,13 @@ updated: 2026-11-09
 
 Tick only with re-runnable evidence. `make work-done` refuses to close if any box is open.
 
-- [ ] `go test ./internal/common/httpx/` green
-- [ ] JSON with an unknown field is 400 problem+json
-- [ ] no import of `encoding/json` v1
+- [x] `go test ./internal/common/httpx/` green
+- [x] JSON with an unknown field is 400 problem+json
+- [x] no import of `encoding/json` v1
 
 ## Evidence & Notes
 
-_Pending._
+- `gofmt -s -w .`, `go vet ./...`, `go test ./...`, and `go test ./internal/archtest/...` — ok. `go test ./internal/common/httpx/` — ok.
+- Unknown field: `TestUnknownFieldIs400ProblemJSON`. `ReadJSON` of `{"url":"...","extra":true}` is 400 `application/problem+json`, slug `incorrect-input`, and the instance is the path without the query string. The body does not include the destination URL, the query, or the client IP.
+- No v1 import: `TestPackageDoesNotImportJSONV1OrChi` parses production imports. `archtest` stdlib-only rule also rejects `encoding/json` v1 and chi.
+- Decode uses `encoding/json/v2` and `RejectUnknownMembers(true)`. `WriteProblem` maps the six slugs to 400, 401, 404, 409, 410, and 429. A non-slug error is 500 with a fixed detail.
