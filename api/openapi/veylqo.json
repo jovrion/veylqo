@@ -1,0 +1,713 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Veylqo",
+    "version": "0.1.0",
+    "summary": "Less URL. More destination.",
+    "description": "Self-hosted link shortener. This document is the HTTP contract (OpenAPI 3.1 JSON, no YAML, no generated server). Public redirects are 302, never 301. Errors are application/problem+json (RFC 9457). Click stats are approximate counts, not request logs. Destination URLs with query strings, client IPs, and tokens are not part of this contract's examples and must not be logged.",
+    "license": {
+      "name": "MIT",
+      "identifier": "MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "links",
+      "description": "Create, read, delete, and count short links."
+    },
+    {
+      "name": "redirect",
+      "description": "Public resolve. Outside /api. 302 only."
+    },
+    {
+      "name": "health",
+      "description": "Process and readiness probes. Not short-link codes."
+    }
+  ],
+  "paths": {
+    "/api/v1/links": {
+      "post": {
+        "operationId": "createLink",
+        "tags": ["links"],
+        "summary": "Shorten a destination",
+        "description": "Requires the publishable key, not the admin token. The destination is cleaned unless clean is false, then checked against the host allowlist. http and https only. Private and loopback hosts are rejected. A repeated request with no slug and no expires_at returns the existing public code when that link has no custom slug, no expiry, and is not deleted. The response code is the public code, never the internal UUIDv7. Storing a URL does not fetch it.",
+        "security": [
+          {
+            "PublishableKey": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateLinkRequest"
+              },
+              "example": {
+                "url": "https://example.com/docs",
+                "clean": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Link created or reused. The body is the public code only.",
+            "headers": {
+              "Cache-Control": {
+                "$ref": "#/components/headers/PrivateNoStore"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateLinkResponse"
+                },
+                "example": {
+                  "code": "Ab3xyZ9"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/IncorrectInput"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalError"
+          }
+        }
+      }
+    },
+    "/api/v1/links/{code}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/Code"
+        }
+      ],
+      "get": {
+        "operationId": "getLink",
+        "tags": ["links"],
+        "summary": "Fetch one link",
+        "description": "Admin read. Returns the stored link, including an expired or deleted row. This is not the redirect path and does not decide gone. A missing code, a code that is not a public slug, and a UUID are not found. A UUID is not looked up.",
+        "security": [
+          {
+            "AdminToken": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Stored link. url is the stored destination and must not be logged when it has a query string.",
+            "headers": {
+              "Cache-Control": {
+                "$ref": "#/components/headers/PrivateNoStore"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                },
+                "example": {
+                  "code": "Ab3xyZ9",
+                  "url": "https://example.com/docs",
+                  "custom": false,
+                  "created_at": "2026-11-11T12:00:00Z"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalError"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteLink",
+        "tags": ["links"],
+        "summary": "Delete a link",
+        "description": "Admin delete. Marks the public code deleted. It does not return the destination. A missing code, a code that is not a public slug, and a UUID are not found. A second delete is gone and does not move the first timestamp. An expired link can still be deleted.",
+        "security": [
+          {
+            "AdminToken": []
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Link marked deleted. No body.",
+            "headers": {
+              "Cache-Control": {
+                "$ref": "#/components/headers/PrivateNoStore"
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "410": {
+            "description": "The link was already deleted.",
+            "headers": {
+              "Cache-Control": {
+                "$ref": "#/components/headers/PrivateNoStore"
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                },
+                "example": {
+                  "type": "about:blank",
+                  "title": "Gone",
+                  "status": 410,
+                  "detail": "link",
+                  "instance": "/api/v1/links/Ab3xyZ9",
+                  "slug": "gone"
+                }
+              }
+            }
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalError"
+          }
+        }
+      }
+    },
+    "/api/v1/links/{code}/stats": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/Code"
+        }
+      ],
+      "get": {
+        "operationId": "getLinkStats",
+        "tags": ["links"],
+        "summary": "Click count for a link",
+        "description": "Admin read. Returns a count, not a visit list. No client IP, user agent, referrer, cookie, token, or destination. A zero count is a real link with no stored clicks. Expired and deleted links still have a count. Counts are approximate: a click can be lost if the process dies before flush. A missing code, a code that is not a public slug, and a UUID are not found.",
+        "security": [
+          {
+            "AdminToken": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Approximate click count for the public code.",
+            "headers": {
+              "Cache-Control": {
+                "$ref": "#/components/headers/PrivateNoStore"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LinkStats"
+                },
+                "example": {
+                  "clicks": 0
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalError"
+          }
+        }
+      }
+    },
+    "/{code}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/Code"
+        }
+      ],
+      "get": {
+        "operationId": "redirect",
+        "tags": ["redirect"],
+        "summary": "Redirect to the stored destination",
+        "description": "Public resolve, outside /api. No publishable key. An active link responds 302 with Location set to the stored destination and Cache-Control: private, max-age=0. Never 301. A missing link is 404. An expired or deleted link is 410 and is not redirected. Reserved routes (/api, /healthz, /readyz, /metrics) are not this operation. The handler does not fetch the destination. RecordClick is not awaited; the 302 does not depend on whether the click was queued. Analytics are approximate.",
+        "security": [],
+        "responses": {
+          "302": {
+            "description": "Temporary redirect to the stored destination. Status is 302, never 301.",
+            "headers": {
+              "Location": {
+                "description": "Stored destination. The handler does not connect to this URL.",
+                "required": true,
+                "schema": {
+                  "type": "string",
+                  "format": "uri",
+                  "examples": ["https://example.com/docs"]
+                }
+              },
+              "Cache-Control": {
+                "description": "Forbids treating the redirect as a fresh shared cache entry.",
+                "required": true,
+                "schema": {
+                  "type": "string",
+                  "const": "private, max-age=0"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Missing link. A code that is not a public slug, and a UUID, are also not found. A UUID is not looked up.",
+            "headers": {
+              "Cache-Control": {
+                "$ref": "#/components/headers/PrivateNoStore"
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                },
+                "example": {
+                  "type": "about:blank",
+                  "title": "Not Found",
+                  "status": 404,
+                  "detail": "link",
+                  "instance": "/Ab3xyZ9",
+                  "slug": "not-found"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Expired or deleted link. Do not redirect to the old destination.",
+            "headers": {
+              "Cache-Control": {
+                "$ref": "#/components/headers/PrivateNoStore"
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                },
+                "example": {
+                  "type": "about:blank",
+                  "title": "Gone",
+                  "status": 410,
+                  "detail": "link",
+                  "instance": "/Ab3xyZ9",
+                  "slug": "gone"
+                }
+              }
+            }
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalError"
+          }
+        }
+      }
+    },
+    "/healthz": {
+      "get": {
+        "operationId": "healthz",
+        "tags": ["health"],
+        "summary": "Process is up",
+        "description": "Liveness. The process can answer. This route is not a short-link code and must not fall through to GET /{code}.",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Process is up.",
+            "headers": {
+              "Cache-Control": {
+                "$ref": "#/components/headers/PrivateNoStore"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                },
+                "example": {
+                  "status": "ok"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/readyz": {
+      "get": {
+        "operationId": "readyz",
+        "tags": ["health"],
+        "summary": "Ready to serve",
+        "description": "Readiness. 200 when the process can serve links. 503 when it cannot. This route is not a short-link code and must not fall through to GET /{code}. 503 is operational and is not an application slug.",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Ready to serve.",
+            "headers": {
+              "Cache-Control": {
+                "$ref": "#/components/headers/PrivateNoStore"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                },
+                "example": {
+                  "status": "ready"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Not ready to serve. Not a problem+json slug.",
+            "headers": {
+              "Cache-Control": {
+                "$ref": "#/components/headers/PrivateNoStore"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                },
+                "example": {
+                  "status": "not-ready"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "PublishableKey": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "Publishable key. Authorizes POST /api/v1/links only. Safe to embed in a page. It is not the admin token. A missing or wrong key is 401."
+      },
+      "AdminToken": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "Admin token. Authorizes get, delete, and stats. Distinct from the publishable key. Knowing a public code is not admin access. Must not be embedded in browser code. A missing or wrong token is 401."
+      }
+    },
+    "parameters": {
+      "Code": {
+        "name": "code",
+        "in": "path",
+        "required": true,
+        "description": "Public code. Random codes are 7-character base62. Custom slugs are 3–64 characters matching [A-Za-z0-9_-]+. Not the internal UUIDv7. Reserved names (api, healthz, readyz, metrics, debug, static), including case variants, are not codes.",
+        "schema": {
+          "$ref": "#/components/schemas/Code"
+        },
+        "example": "Ab3xyZ9"
+      }
+    },
+    "headers": {
+      "PrivateNoStore": {
+        "description": "Do not cache the response as a shared fresh entry.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "const": "private, max-age=0"
+        }
+      }
+    },
+    "schemas": {
+      "Code": {
+        "type": "string",
+        "minLength": 3,
+        "maxLength": 64,
+        "pattern": "^[A-Za-z0-9_-]+$",
+        "examples": ["Ab3xyZ9"],
+        "description": "Public code. Not a UUID."
+      },
+      "CreateLinkRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["url"],
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Destination. http or https only. The fragment is dropped. The host must be on the allowlist. Private and loopback hosts are rejected.",
+            "examples": ["https://example.com/docs"]
+          },
+          "slug": {
+            "$ref": "#/components/schemas/Code",
+            "description": "Optional custom slug. Omit to generate a 7-character base62 code."
+          },
+          "clean": {
+            "type": "boolean",
+            "default": true,
+            "description": "When true, tracking parameters are stripped before storage. false skips that stripping and per-host path rules only. It does not skip scheme checks, fragment dropping, private-host blocking, or the allowlist."
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Optional expiry. Must be strictly after creation. Omit for a link that does not expire. An expiry disables idempotent reuse."
+          }
+        }
+      },
+      "CreateLinkResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["code"],
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/Code"
+          }
+        }
+      },
+      "Link": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["code", "url", "custom", "created_at"],
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/Code"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Stored destination. May still contain a query string when clean was false. Do not log that value.",
+            "examples": ["https://example.com/docs"]
+          },
+          "custom": {
+            "type": "boolean",
+            "description": "True when the caller supplied the slug."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Present only when the link expires."
+          },
+          "deleted_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Present only when the link is deleted. Admin get still returns the row."
+          }
+        }
+      },
+      "LinkStats": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["clicks"],
+        "properties": {
+          "clicks": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Approximate click count. Not a visit list."
+          }
+        }
+      },
+      "Health": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["status"],
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": ["ok", "ready", "not-ready"]
+          }
+        }
+      },
+      "Problem": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "RFC 9457 problem details. type is about:blank. slug is the application class. detail and instance omit destination URLs, query strings, client IPs, and tokens. A non-slug failure has status 500, detail internal error, and no slug.",
+        "required": ["type", "title", "status"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "format": "uri",
+            "examples": ["about:blank"]
+          },
+          "title": {
+            "type": "string"
+          },
+          "status": {
+            "type": "integer",
+            "minimum": 400,
+            "maximum": 599
+          },
+          "detail": {
+            "type": "string"
+          },
+          "instance": {
+            "type": "string",
+            "description": "Request path without the query string."
+          },
+          "slug": {
+            "type": "string",
+            "enum": [
+              "incorrect-input",
+              "unauthorized",
+              "not-found",
+              "conflict",
+              "gone",
+              "rate-limited"
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "IncorrectInput": {
+        "description": "The request is incorrect-input. Unknown JSON members are rejected. A host outside the allowlist, a non-http(s) destination, a private or loopback host, a reserved slug, or an expiry that is not in the future is 400.",
+        "content": {
+          "application/problem+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            },
+            "example": {
+              "type": "about:blank",
+              "title": "Bad Request",
+              "status": 400,
+              "detail": "unknown field \"extra\"",
+              "instance": "/api/v1/links",
+              "slug": "incorrect-input"
+            }
+          }
+        }
+      },
+      "Unauthorized": {
+        "description": "Missing or wrong credential for this route. The publishable key does not authorize admin routes. The admin token does not authorize shorten.",
+        "content": {
+          "application/problem+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            },
+            "example": {
+              "type": "about:blank",
+              "title": "Unauthorized",
+              "status": 401,
+              "detail": "credential required",
+              "instance": "/api/v1/links",
+              "slug": "unauthorized"
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "No link for that public code.",
+        "content": {
+          "application/problem+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            },
+            "example": {
+              "type": "about:blank",
+              "title": "Not Found",
+              "status": 404,
+              "detail": "link",
+              "instance": "/api/v1/links/Ab3xyZ9",
+              "slug": "not-found"
+            }
+          }
+        }
+      },
+      "Conflict": {
+        "description": "The custom slug is already taken, or the destination cannot be reused.",
+        "content": {
+          "application/problem+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            },
+            "example": {
+              "type": "about:blank",
+              "title": "Conflict",
+              "status": 409,
+              "detail": "slug",
+              "instance": "/api/v1/links",
+              "slug": "conflict"
+            }
+          }
+        }
+      },
+      "RateLimited": {
+        "description": "Per-IP limit exceeded. The limiter is not a visit log and the body does not include the client IP.",
+        "headers": {
+          "Cache-Control": {
+            "$ref": "#/components/headers/PrivateNoStore"
+          }
+        },
+        "content": {
+          "application/problem+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            },
+            "example": {
+              "type": "about:blank",
+              "title": "Too Many Requests",
+              "status": 429,
+              "detail": "rate limited",
+              "instance": "/api/v1/links",
+              "slug": "rate-limited"
+            }
+          }
+        }
+      },
+      "InternalError": {
+        "description": "Unexpected failure. The body is fixed and does not include the cause.",
+        "content": {
+          "application/problem+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            },
+            "example": {
+              "type": "about:blank",
+              "title": "Internal Server Error",
+              "status": 500,
+              "detail": "internal error"
+            }
+          }
+        }
+      }
+    }
+  }
+}

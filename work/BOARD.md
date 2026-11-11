@@ -8,8 +8,8 @@ Execution index for `work/`. Rules in `work/README.md`.
 
 | State | Tasks |
 |---|---|
-| `open` | 16 |
-| `done` | 25 |
+| `open` | 15 |
+| `done` | 26 |
 | **total** | **41** |
 
 ## By area
@@ -19,7 +19,7 @@ Execution index for `work/`. Rules in `work/README.md`.
 | `setup` | 2 | 2 |
 | `docs` | 3 | 2 |
 | `go` | 27 | 20 |
-| `contract` | 1 | 0 |
+| `contract` | 1 | 1 |
 | `js` | 5 | 0 |
 | `ops` | 3 | 1 |
 
@@ -86,7 +86,7 @@ Execution index for `work/`. Rules in `work/README.md`.
 
 | Task | State | Area | Priority | Title |
 |---|---|---|---|---|
-| [VYQ-31](tasks/VYQ-5/VYQ-31-openapi-veylqo-json.md) | `open` | `contract` | critical | [contract] OpenAPI 3.1 api/openapi/veylqo.json |
+| [VYQ-31](tasks/VYQ-5/VYQ-31-openapi-veylqo-json.md) | `done` | `contract` | critical | [contract] OpenAPI 3.1 api/openapi/veylqo.json |
 | [VYQ-32](tasks/VYQ-5/VYQ-32-httpx-jsonv2-problem-json.md) | `done` | `go` | critical | [go] httpx: json/v2 and problem+json |
 | [VYQ-33](tasks/VYQ-5/VYQ-33-http-api-ports.md) | `open` | `go` | critical | [go] HTTP API ports |
 | [VYQ-34](tasks/VYQ-5/VYQ-34-get-code-redirect-302.md) | `open` | `go` | critical | [go] GET /{code} 302 redirect |
