@@ -46,11 +46,28 @@ func NewMux(application app.Application) *http.ServeMux {
 		stats:   application.Queries.Stats,
 	}
 	mux := http.NewServeMux()
-	mux.HandleFunc("POST /api/v1/links", h.createLink)
-	mux.HandleFunc("GET /api/v1/links/{code}", h.getLink)
-	mux.HandleFunc("DELETE /api/v1/links/{code}", h.deleteLink)
-	mux.HandleFunc("GET /api/v1/links/{code}/stats", h.linkStats)
+	for _, route := range apiRoutes {
+		mux.HandleFunc(route.pattern(), h.handler(route))
+	}
 	return mux
+}
+
+// handler is the only dispatch for apiRoutes. A route with no case is a
+// programmer error: the contract test would otherwise see a path that
+// cannot answer.
+func (h api) handler(route route) http.HandlerFunc {
+	switch route.pattern() {
+	case "POST /api/v1/links":
+		return h.createLink
+	case "GET /api/v1/links/{code}":
+		return h.getLink
+	case "DELETE /api/v1/links/{code}":
+		return h.deleteLink
+	case "GET /api/v1/links/{code}/stats":
+		return h.linkStats
+	default:
+		panic("ports: no handler for " + route.pattern())
+	}
 }
 
 type createLinkRequest struct {

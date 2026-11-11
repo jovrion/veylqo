@@ -35,10 +35,13 @@ type redirectHandler struct {
 // on a duplicate.
 func NewRedirectMux(application app.Application) *http.ServeMux {
 	mux := http.NewServeMux()
-	for _, path := range reservedRedirectPaths {
-		mux.HandleFunc("GET "+path, reservedRoute)
+	for _, route := range redirectRoutes() {
+		if route.path == redirectPath {
+			RegisterRedirect(mux, application)
+			continue
+		}
+		mux.HandleFunc(route.pattern(), reservedRoute)
 	}
-	RegisterRedirect(mux, application)
 	return mux
 }
 
@@ -48,7 +51,7 @@ func NewRedirectMux(application app.Application) *http.ServeMux {
 // error and panics in ServeMux. A zero Application does not panic here;
 // a request with no Resolve handler is 500 problem+json.
 func RegisterRedirect(mux *http.ServeMux, application app.Application) {
-	mux.Handle("GET /{code}", redirectHandler{
+	mux.Handle(http.MethodGet+" "+redirectPath, redirectHandler{
 		resolve: application.Queries.Resolve,
 		clicks:  application.Commands.RecordClick,
 	})

@@ -8,8 +8,8 @@ Execution index for `work/`. Rules in `work/README.md`.
 
 | State | Tasks |
 |---|---|
-| `open` | 12 |
-| `done` | 29 |
+| `open` | 11 |
+| `done` | 30 |
 | **total** | **41** |
 
 ## By area
@@ -18,7 +18,7 @@ Execution index for `work/`. Rules in `work/README.md`.
 |---|---|---|
 | `setup` | 2 | 2 |
 | `docs` | 3 | 2 |
-| `go` | 27 | 23 |
+| `go` | 27 | 24 |
 | `contract` | 1 | 1 |
 | `js` | 5 | 0 |
 | `ops` | 3 | 1 |
@@ -82,7 +82,7 @@ Execution index for `work/`. Rules in `work/README.md`.
 ## VYQ-5 — F4 — Ports and contract
 
 - File: [epics/VYQ-5-f4-ports-and-contract.md](epics/VYQ-5-f4-ports-and-contract.md)
-- Derived status: `in-progress`
+- Derived status: `done`
 
 | Task | State | Area | Priority | Title |
 |---|---|---|---|---|
@@ -91,7 +91,7 @@ Execution index for `work/`. Rules in `work/README.md`.
 | [VYQ-33](tasks/VYQ-5/VYQ-33-http-api-ports.md) | `done` | `go` | critical | [go] HTTP API ports |
 | [VYQ-34](tasks/VYQ-5/VYQ-34-get-code-redirect-302.md) | `done` | `go` | critical | [go] GET /{code} 302 redirect |
 | [VYQ-35](tasks/VYQ-5/VYQ-35-cors-rate-limit-and-keys.md) | `done` | `go` | major | [go] CORS, rate limit, and keys |
-| [VYQ-36](tasks/VYQ-5/VYQ-36-contract-test-spec-handlers.md) | `open` | `go` | major | [go] Contract test spec ↔ handlers |
+| [VYQ-36](tasks/VYQ-5/VYQ-36-contract-test-spec-handlers.md) | `done` | `go` | major | [go] Contract test spec ↔ handlers |
 
 ## VYQ-6 — F5 — Service and distribution
 
