@@ -250,7 +250,11 @@ func appliedAt(t *testing.T, db *sql.DB) map[string]int64 {
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer rows.Close()
+	defer func() {
+		if err := rows.Close(); err != nil {
+			t.Error(err)
+		}
+	}()
 	out := make(map[string]int64)
 	for rows.Next() {
 		var version string

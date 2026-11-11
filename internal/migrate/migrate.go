@@ -57,7 +57,7 @@ func Apply(ctx context.Context, db *sql.DB, dialect Dialect) error {
 	return apply(ctx, db, dialect, embedded)
 }
 
-func apply(ctx context.Context, db *sql.DB, dialect Dialect, fsys fs.FS) error {
+func apply(ctx context.Context, db *sql.DB, dialect Dialect, fsys fs.FS) (err error) {
 	if err := ctx.Err(); err != nil {
 		return err
 	}
@@ -76,14 +76,17 @@ func apply(ctx context.Context, db *sql.DB, dialect Dialect, fsys fs.FS) error {
 	if err != nil {
 		return fmt.Errorf("migrate: connection: %w", err)
 	}
-	defer conn.Close()
+	defer func() {
+		err = errors.Join(err, conn.Close())
+	}()
 
 	release, err := lock(ctx, conn, dialect)
 	if err != nil {
 		return err
 	}
 	applyErr := applyLocked(ctx, conn, dialect, migrations)
-	return errors.Join(applyErr, release())
+	err = errors.Join(applyErr, release())
+	return err
 }
 
 func knownDialect(dialect Dialect) bool {
@@ -148,13 +151,17 @@ func insertVersionSQL(dialect Dialect) string {
 	return "INSERT INTO schema_migrations (version, applied_at) VALUES (?, ?)"
 }
 
-func appliedVersions(ctx context.Context, conn *sql.Conn) (map[string]struct{}, error) {
+func appliedVersions(ctx context.Context, conn *sql.Conn) (applied map[string]struct{}, err error) {
 	rows, err := conn.QueryContext(ctx, "SELECT version FROM schema_migrations")
 	if err != nil {
 		return nil, fmt.Errorf("migrate: list versions: %w", err)
 	}
-	defer rows.Close()
-	applied := make(map[string]struct{})
+	defer func() {
+		if cerr := rows.Close(); cerr != nil && err == nil {
+			err = fmt.Errorf("migrate: list versions: %w", cerr)
+		}
+	}()
+	applied = make(map[string]struct{})
 	for rows.Next() {
 		var version string
 		if err := rows.Scan(&version); err != nil {
