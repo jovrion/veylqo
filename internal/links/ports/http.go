@@ -1,10 +1,11 @@
-// Package ports is the HTTP edge for the link API.
+// Package ports is the HTTP edge for links.
 //
 // Handlers are hand-written on net/http.ServeMux (ADR-0003, ADR-0004).
 // They decode and encode through httpx and call commands and queries.
-// They do not decide allowlists, expiry, or cleaning, and they do not
-// record a click (ADR-0002). GET /{code} is not registered here.
-// This package does not import database/sql.
+// They do not decide allowlists, expiry, or cleaning. The API mux does
+// not record a click and does not register GET /{code} (ADR-0002).
+// The redirect edge is separate (ADR-0007, ADR-0009). This package does
+// not import database/sql.
 package ports
 
 import (
