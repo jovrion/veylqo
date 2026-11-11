@@ -27,8 +27,8 @@ jobs:
         uses: actions/setup-go@v7.0.0
         with:
           go-version-file: go.mod
-          # No go.sum until a driver task adds a require.
-          cache: false
+          # go.sum is the lockfile for the two driver requires (ADR-0003).
+          cache: true
 
       - name: gofmt
         run: |
@@ -66,14 +66,16 @@ jobs:
       - name: govulncheck
         run: govulncheck ./...
 
-      - name: go.mod has no tool directive
+      - name: module files are unchanged
         run: |
           if grep -n '^tool ' go.mod; then
             echo "tool directive is forbidden (ADR-0003)"
             exit 1
           fi
-          git diff --exit-code -- go.mod
-          if [ -f go.sum ]; then
-            echo "CI must not create go.sum"
+          # go.sum is committed with the driver requires. CI must not
+          # create it or rewrite it; a missing lockfile is also a failure.
+          if [ ! -f go.sum ]; then
+            echo "go.sum is missing; driver requires need a committed lockfile"
             exit 1
           fi
+          git diff --exit-code -- go.mod go.sum
