@@ -166,6 +166,28 @@
           "401": {
             "$ref": "#/components/responses/Unauthorized"
           },
+          "403": {
+            "description": "Cross-origin admin delete rejected by CrossOriginProtection. The body does not include the Origin. This is not a missing admin token. GET is a safe method and is not rejected here.",
+            "headers": {
+              "Cache-Control": {
+                "$ref": "#/components/headers/PrivateNoStore"
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                },
+                "example": {
+                  "type": "about:blank",
+                  "title": "Forbidden",
+                  "status": 403,
+                  "detail": "cross-origin request rejected",
+                  "instance": "/api/v1/links/Ab3xyZ9"
+                }
+              }
+            }
+          },
           "404": {
             "$ref": "#/components/responses/NotFound"
           },
@@ -559,7 +581,7 @@
       "Problem": {
         "type": "object",
         "additionalProperties": false,
-        "description": "RFC 9457 problem details. type is about:blank. slug is the application class. detail and instance omit destination URLs, query strings, client IPs, and tokens. A non-slug failure has status 500, detail internal error, and no slug.",
+        "description": "RFC 9457 problem details. type is about:blank. slug is the application class. detail and instance omit destination URLs, query strings, client IPs, and tokens. A non-slug failure has no slug. An unexpected failure is 500 with detail internal error. A cross-origin admin rejection is 403 and is not a slug.",
         "required": ["type", "title", "status"],
         "properties": {
           "type": {

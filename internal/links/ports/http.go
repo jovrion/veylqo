@@ -4,8 +4,11 @@
 // They decode and encode through httpx and call commands and queries.
 // They do not decide allowlists, expiry, or cleaning. The API mux does
 // not record a click and does not register GET /{code} (ADR-0002).
-// The redirect edge is separate (ADR-0007, ADR-0009). This package does
-// not import database/sql.
+// The redirect edge is separate (ADR-0007, ADR-0009). NewAPIGuard is the
+// abuse edge for the API mux: publishable key, admin token, CORS, and
+// CrossOriginProtection (ADR-0010). NewLimiter is the per-IP token bucket
+// for that guard and for the redirect mux. Neither logs an IP, a token,
+// or a destination. This package does not import database/sql.
 package ports
 
 import (
@@ -31,9 +34,10 @@ type api struct {
 }
 
 // NewMux registers the link API. It does not register the public
-// redirect, health checks, or admin key checks. Those are separate
-// edges. A zero Application does not panic at registration; a request
-// to a missing handler is 500 problem+json.
+// redirect, health checks, or key checks. Wrap it with NewAPIGuard.
+// Wrap the redirect mux with Limiter.Handler. A zero Application does
+// not panic at registration; a request to a missing handler is 500
+// problem+json.
 func NewMux(application app.Application) *http.ServeMux {
 	h := api{
 		shorten: application.Commands.Shorten,
