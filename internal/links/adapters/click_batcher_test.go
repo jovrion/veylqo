@@ -246,7 +246,7 @@ func TestClickBatcherEnqueueDoesNotAcceptRejectedClicks(t *testing.T) {
 		if err := b.Enqueue(ctx, code); !errors.Is(err, context.Canceled) {
 			t.Fatalf("cancelled Enqueue = %v, want context.Canceled", err)
 		}
-		if err := b.Enqueue(nil, code); err == nil {
+		if err := b.Enqueue(context.Background(), code); err == nil {
 			t.Fatal("nil context was accepted")
 		}
 		if err := b.Enqueue(context.Background(), link.Code{}); err == nil {
