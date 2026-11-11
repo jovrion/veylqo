@@ -342,10 +342,10 @@ func TestPackageDoesNotImportJSONV1OrChi(t *testing.T) {
 		}
 		for _, spec := range file.Imports {
 			path := strings.Trim(spec.Path.Value, `"`)
-			switch {
-			case path == "encoding/json":
+			switch path {
+			case "encoding/json":
 				t.Fatalf("%s imports encoding/json v1", name)
-			case path == "encoding/json/v2":
+			case "encoding/json/v2":
 				sawV2 = true
 			}
 			for _, router := range routers {
