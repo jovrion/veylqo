@@ -8,8 +8,8 @@ Execution index for `work/`. Rules in `work/README.md`.
 
 | State | Tasks |
 |---|---|
-| `open` | 11 |
-| `done` | 30 |
+| `open` | 10 |
+| `done` | 31 |
 | **total** | **41** |
 
 ## By area
@@ -18,7 +18,7 @@ Execution index for `work/`. Rules in `work/README.md`.
 |---|---|---|
 | `setup` | 2 | 2 |
 | `docs` | 3 | 2 |
-| `go` | 27 | 24 |
+| `go` | 27 | 25 |
 | `contract` | 1 | 1 |
 | `js` | 5 | 0 |
 | `ops` | 3 | 1 |
@@ -96,11 +96,11 @@ Execution index for `work/`. Rules in `work/README.md`.
 ## VYQ-6 — F5 — Service and distribution
 
 - File: [epics/VYQ-6-f5-service-and-distribution.md](epics/VYQ-6-f5-service-and-distribution.md)
-- Derived status: `open`
+- Derived status: `in-progress`
 
 | Task | State | Area | Priority | Title |
 |---|---|---|---|---|
-| [VYQ-37](tasks/VYQ-6/VYQ-37-service-newapplication.md) | `open` | `go` | critical | [go] service.NewApplication |
+| [VYQ-37](tasks/VYQ-6/VYQ-37-service-newapplication.md) | `done` | `go` | critical | [go] service.NewApplication |
 | [VYQ-38](tasks/VYQ-6/VYQ-38-cmd-veylqo-config-shutdown.md) | `open` | `go` | critical | [go] cmd/veylqo: config, drivers, shutdown |
 | [VYQ-39](tasks/VYQ-6/VYQ-39-http-component-tests.md) | `open` | `go` | major | [go] HTTP component tests |
 | [VYQ-40](tasks/VYQ-6/VYQ-40-dockerfile-and-compose.md) | `open` | `ops` | major | [ops] Dockerfile and docker-compose |
