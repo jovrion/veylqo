@@ -240,13 +240,19 @@ func TestClickBatcherEnqueueDoesNotAcceptRejectedClicks(t *testing.T) {
 			Batch:    10,
 			Interval: time.Hour,
 		})
+		// A failed assertion must not leave run blocked inside the bubble.
+		defer shutdownBatcher(t, b)
+
 		code := mustBatcherCode(t, "Ab3xyZ9")
 		ctx, cancel := context.WithCancel(context.Background())
 		cancel()
 		if err := b.Enqueue(ctx, code); !errors.Is(err, context.Canceled) {
 			t.Fatalf("cancelled Enqueue = %v, want context.Canceled", err)
 		}
-		if err := b.Enqueue(context.Background(), code); err == nil {
+		// A nil variable, not the nil literal: staticcheck SA1012 rewrites
+		// Enqueue(nil) and would hide this rejection.
+		var nilCtx context.Context
+		if err := b.Enqueue(nilCtx, code); err == nil {
 			t.Fatal("nil context was accepted")
 		}
 		if err := b.Enqueue(context.Background(), link.Code{}); err == nil {

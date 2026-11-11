@@ -9,8 +9,8 @@ Execution index for `work/`. Rules in `work/README.md`.
 | State | Tasks |
 |---|---|
 | `open` | 19 |
-| `done` | 21 |
-| **total** | **40** |
+| `done` | 22 |
+| **total** | **41** |
 
 ## By area
 
@@ -18,7 +18,7 @@ Execution index for `work/`. Rules in `work/README.md`.
 |---|---|---|
 | `setup` | 2 | 2 |
 | `docs` | 3 | 2 |
-| `go` | 26 | 16 |
+| `go` | 27 | 17 |
 | `contract` | 1 | 0 |
 | `js` | 5 | 0 |
 | `ops` | 3 | 1 |
@@ -77,6 +77,7 @@ Execution index for `work/`. Rules in `work/README.md`.
 | [VYQ-28](tasks/VYQ-4/VYQ-28-click-batcher.md) | `done` | `go` | major | [go] click_batcher |
 | [VYQ-29](tasks/VYQ-4/VYQ-29-resolve-cache-lru.md) | `open` | `go` | normal | [go] resolve_cache LRU |
 | [VYQ-30](tasks/VYQ-4/VYQ-30-base62-code-generator.md) | `open` | `go` | major | [go] crypto/rand base62 code generator |
+| [VYQ-48](tasks/VYQ-4/VYQ-48-fix-click-batcher-nil-context-test.md) | `done` | `go` | major | [go] fix click batcher nil context test |
 
 ## VYQ-5 — F4 — Ports and contract
 
