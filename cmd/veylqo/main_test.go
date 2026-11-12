@@ -181,7 +181,7 @@ func TestHealthAndMigrateFlag(t *testing.T) {
 		t.Fatalf("cache-control = %q", health.Header.Get("Cache-Control"))
 	}
 	body, err := io.ReadAll(health.Body)
-	health.Body.Close()
+	closeBody(t, health.Body)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -192,7 +192,7 @@ func TestHealthAndMigrateFlag(t *testing.T) {
 		t.Fatalf("readyz = %d", ready.StatusCode)
 	}
 	readyBody, err := io.ReadAll(ready.Body)
-	ready.Body.Close()
+	closeBody(t, ready.Body)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -260,26 +260,26 @@ func TestSIGTERMDoesNotSkipBatcherFlush(t *testing.T) {
 	if health.StatusCode != http.StatusOK || health.Header.Get("Cache-Control") != "private, max-age=0" {
 		t.Fatalf("healthz = %d cache = %q", health.StatusCode, health.Header.Get("Cache-Control"))
 	}
-	health.Body.Close()
+	closeBody(t, health.Body)
 	ready := get(t, client, base+"/readyz")
 	if ready.StatusCode != http.StatusOK {
 		t.Fatalf("readyz = %d", ready.StatusCode)
 	}
-	ready.Body.Close()
+	closeBody(t, ready.Body)
 
 	code := shorten(t, client, base)
 	redirect := get(t, client, base+"/"+code)
 	if redirect.StatusCode != http.StatusFound {
 		t.Fatalf("redirect = %d, want 302", redirect.StatusCode)
 	}
-	redirect.Body.Close()
+	closeBody(t, redirect.Body)
 
 	deadline := time.Now().Add(5 * time.Second)
 	var metrics string
 	for time.Now().Before(deadline) {
 		res := get(t, client, base+"/metrics")
 		body, err := io.ReadAll(res.Body)
-		res.Body.Close()
+		closeBody(t, res.Body)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -387,7 +387,7 @@ func shorten(t *testing.T, client *http.Client, base string) string {
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer res.Body.Close()
+	defer closeBody(t, res.Body)
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
 		t.Fatal(err)
@@ -416,15 +416,25 @@ func get(t *testing.T, client *http.Client, rawURL string) *http.Response {
 	return res
 }
 
-func clickTotal(path string) (int64, error) {
+func clickTotal(path string) (n int64, err error) {
 	db, err := sql.Open("sqlite", "file:"+filepath.ToSlash(path)+"?mode=ro&_busy_timeout=1000")
 	if err != nil {
 		return 0, err
 	}
-	defer db.Close()
-	var n int64
+	defer func() {
+		if cerr := db.Close(); cerr != nil && err == nil {
+			err = cerr
+		}
+	}()
 	err = db.QueryRow(`SELECT COALESCE(SUM(click_count), 0) FROM clicks`).Scan(&n)
 	return n, err
+}
+
+func closeBody(t *testing.T, body io.Closer) {
+	t.Helper()
+	if err := body.Close(); err != nil {
+		t.Error(err)
+	}
 }
 
 func waitAddrFile(t *testing.T, path string, errCh <-chan error) string {

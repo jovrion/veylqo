@@ -147,7 +147,11 @@ func metricLabel(value string) string {
 		return "redacted"
 	}
 	for _, r := range value {
-		if r > 127 || !(r == '_' || r == '-' || (r >= '0' && r <= '9') || (r >= 'A' && r <= 'Z') || (r >= 'a' && r <= 'z')) {
+		allowed := r == '_' || r == '-' ||
+			(r >= '0' && r <= '9') ||
+			(r >= 'A' && r <= 'Z') ||
+			(r >= 'a' && r <= 'z')
+		if r > 127 || !allowed {
 			return "redacted"
 		}
 	}

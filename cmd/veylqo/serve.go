@@ -102,7 +102,9 @@ func serve(ctx context.Context, cfg config, logger *slog.Logger) error {
 	}()
 	if err := writeAddrFile(cfg.addrFile, ln.Addr().String()); err != nil {
 		_ = server.Close()
-		<-errCh
+		if serveErr := <-errCh; serveErr != nil && !errors.Is(serveErr, http.ErrServerClosed) {
+			return fail(errors.New("serve: listener stopped"))
+		}
 		return fail(err)
 	}
 	logger.Info("listening", "addr", ln.Addr().String())
