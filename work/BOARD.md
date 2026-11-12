@@ -8,8 +8,8 @@ Execution index for `work/`. Rules in `work/README.md`.
 
 | State | Tasks |
 |---|---|
-| `open` | 7 |
-| `done` | 34 |
+| `open` | 6 |
+| `done` | 35 |
 | **total** | **41** |
 
 ## By area
@@ -21,7 +21,7 @@ Execution index for `work/`. Rules in `work/README.md`.
 | `go` | 27 | 27 |
 | `contract` | 1 | 1 |
 | `js` | 5 | 0 |
-| `ops` | 3 | 2 |
+| `ops` | 3 | 3 |
 
 ## VYQ-1 — F0 — Governance and repo foundation
 
@@ -104,7 +104,7 @@ Execution index for `work/`. Rules in `work/README.md`.
 | [VYQ-38](tasks/VYQ-6/VYQ-38-cmd-veylqo-config-shutdown.md) | `done` | `go` | critical | [go] cmd/veylqo: config, drivers, shutdown |
 | [VYQ-39](tasks/VYQ-6/VYQ-39-http-component-tests.md) | `done` | `go` | major | [go] HTTP component tests |
 | [VYQ-40](tasks/VYQ-6/VYQ-40-dockerfile-and-compose.md) | `done` | `ops` | major | [ops] Dockerfile and docker-compose |
-| [VYQ-41](tasks/VYQ-6/VYQ-41-ci-e2e-postgres.md) | `open` | `ops` | normal | [ops] CI e2e against Postgres |
+| [VYQ-41](tasks/VYQ-6/VYQ-41-ci-e2e-postgres.md) | `done` | `ops` | normal | [ops] CI e2e against Postgres |
 | [VYQ-42](tasks/VYQ-6/VYQ-42-self-hosted-operations-readme.md) | `open` | `docs` | minor | [docs] Self-hosted operations README |
 
 ## VYQ-7 — F6 — JS SDK

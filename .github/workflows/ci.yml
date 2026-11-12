@@ -79,3 +79,59 @@ jobs:
             exit 1
           fi
           git diff --exit-code -- go.mod go.sum
+
+  # ADR-0005: a laptop run may skip Postgres. This job is the run that
+  # claims the adapter suite executed, so it must provide the DSN.
+  # The password matches the Compose placeholder. It is not a production
+  # secret. Do not print VEYLQO_TEST_PG_DSN.
+  postgres:
+    name: postgres
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: veylqo
+          POSTGRES_PASSWORD: veylqo
+          POSTGRES_DB: veylqo
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U veylqo -d veylqo"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+          --health-start-period 5s
+    env:
+      # 127.0.0.1, not localhost: the service port is IPv4 on the runner.
+      VEYLQO_TEST_PG_DSN: postgres://veylqo:veylqo@127.0.0.1:5432/veylqo?sslmode=disable
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7.0.1
+
+      - name: Set up Go
+        uses: actions/setup-go@v7.0.0
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: postgres adapter tests
+        run: |
+          if [ -z "${VEYLQO_TEST_PG_DSN:-}" ]; then
+            echo "VEYLQO_TEST_PG_DSN is unset"
+            exit 1
+          fi
+          set +e
+          out=$(go test ./internal/links/adapters/ -count=1 -run 'Postgres' -v)
+          test_status=$?
+          set -e
+          printf '%s\n' "$out"
+          if [ "$test_status" -ne 0 ]; then
+            exit "$test_status"
+          fi
+          if printf '%s\n' "$out" | grep -E -q '^--- SKIP:'; then
+            echo "postgres adapter tests skipped"
+            exit 1
+          fi
+          printf '%s\n' "$out" | grep -q '^--- PASS: TestPostgresRepository '
+          printf '%s\n' "$out" | grep -q '^--- PASS: TestPostgresStoresIDAsUUID '
