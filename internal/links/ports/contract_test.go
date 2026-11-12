@@ -21,16 +21,18 @@ import (
 
 // undocumentedRoutes are registered so they do not match GET /{code}
 // (ADR-0007). They are not operations in api/openapi/veylqo.json.
-// /healthz and /readyz are operations. /metrics is omitted from the spec
-// until VYQ-38 (VYQ-31). /api is the API prefix, not an operation.
+// /healthz and /readyz are operations. /metrics is not an operation
+// (ADR-0004); cmd/veylqo registers the real handler. /api is the API
+// prefix, not an operation.
 var undocumentedRoutes = map[string]struct{}{
 	"GET /api":     {},
 	"GET /metrics": {},
 }
 
-// deferredStatusRoutes have a registered handler so the name is not a
-// short code. The status body (200, and 503 for readyz) is VYQ-38.
-// This task does not invent those handlers.
+// deferredStatusRoutes reserve names that must not be short codes.
+// cmd/veylqo writes the 200 and 503 bodies on the parent mux. This
+// package's placeholder is not that handler, so the success-code check
+// stays deferred.
 var deferredStatusRoutes = map[string]struct{}{
 	"GET /healthz": {},
 	"GET /readyz":  {},

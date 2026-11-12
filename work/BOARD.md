@@ -8,8 +8,8 @@ Execution index for `work/`. Rules in `work/README.md`.
 
 | State | Tasks |
 |---|---|
-| `open` | 10 |
-| `done` | 31 |
+| `open` | 9 |
+| `done` | 32 |
 | **total** | **41** |
 
 ## By area
@@ -18,7 +18,7 @@ Execution index for `work/`. Rules in `work/README.md`.
 |---|---|---|
 | `setup` | 2 | 2 |
 | `docs` | 3 | 2 |
-| `go` | 27 | 25 |
+| `go` | 27 | 26 |
 | `contract` | 1 | 1 |
 | `js` | 5 | 0 |
 | `ops` | 3 | 1 |
@@ -101,7 +101,7 @@ Execution index for `work/`. Rules in `work/README.md`.
 | Task | State | Area | Priority | Title |
 |---|---|---|---|---|
 | [VYQ-37](tasks/VYQ-6/VYQ-37-service-newapplication.md) | `done` | `go` | critical | [go] service.NewApplication |
-| [VYQ-38](tasks/VYQ-6/VYQ-38-cmd-veylqo-config-shutdown.md) | `open` | `go` | critical | [go] cmd/veylqo: config, drivers, shutdown |
+| [VYQ-38](tasks/VYQ-6/VYQ-38-cmd-veylqo-config-shutdown.md) | `done` | `go` | critical | [go] cmd/veylqo: config, drivers, shutdown |
 | [VYQ-39](tasks/VYQ-6/VYQ-39-http-component-tests.md) | `open` | `go` | major | [go] HTTP component tests |
 | [VYQ-40](tasks/VYQ-6/VYQ-40-dockerfile-and-compose.md) | `open` | `ops` | major | [ops] Dockerfile and docker-compose |
 | [VYQ-41](tasks/VYQ-6/VYQ-41-ci-e2e-postgres.md) | `open` | `ops` | normal | [ops] CI e2e against Postgres |
