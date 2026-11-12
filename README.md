@@ -161,6 +161,17 @@ response is still 302. Shutdown drains the queue. If the process dies
 before flush, those clicks are gone. Do not promise at-least-once or
 exactly-once. Do not bill or audit from these counters.
 
+## Branches
+
+`main` is the default branch. The `protect-main` ruleset
+(`.github/rulesets/protect-main.json`) rejects a direct push, a force
+push, and deletion. Land changes from a branch with a pull request.
+Required checks are `test` and `postgres`. No approving review is
+required, so one maintainer can merge after CI is green. Use squash or
+rebase: merge commits are rejected.
+
+The same ruleset, with check `test` only, lives in `jovrion/veylqo-js`.
+
 ## How work is tracked
 
 Product changes land through the board in `work/`. A task describes
