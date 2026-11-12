@@ -8,8 +8,8 @@ Execution index for `work/`. Rules in `work/README.md`.
 
 | State | Tasks |
 |---|---|
-| `open` | 6 |
-| `done` | 35 |
+| `open` | 5 |
+| `done` | 36 |
 | **total** | **41** |
 
 ## By area
@@ -17,7 +17,7 @@ Execution index for `work/`. Rules in `work/README.md`.
 | Area | Tasks | Done |
 |---|---|---|
 | `setup` | 2 | 2 |
-| `docs` | 3 | 2 |
+| `docs` | 3 | 3 |
 | `go` | 27 | 27 |
 | `contract` | 1 | 1 |
 | `js` | 5 | 0 |
@@ -96,7 +96,7 @@ Execution index for `work/`. Rules in `work/README.md`.
 ## VYQ-6 — F5 — Service and distribution
 
 - File: [epics/VYQ-6-f5-service-and-distribution.md](epics/VYQ-6-f5-service-and-distribution.md)
-- Derived status: `in-progress`
+- Derived status: `done`
 
 | Task | State | Area | Priority | Title |
 |---|---|---|---|---|
@@ -105,7 +105,7 @@ Execution index for `work/`. Rules in `work/README.md`.
 | [VYQ-39](tasks/VYQ-6/VYQ-39-http-component-tests.md) | `done` | `go` | major | [go] HTTP component tests |
 | [VYQ-40](tasks/VYQ-6/VYQ-40-dockerfile-and-compose.md) | `done` | `ops` | major | [ops] Dockerfile and docker-compose |
 | [VYQ-41](tasks/VYQ-6/VYQ-41-ci-e2e-postgres.md) | `done` | `ops` | normal | [ops] CI e2e against Postgres |
-| [VYQ-42](tasks/VYQ-6/VYQ-42-self-hosted-operations-readme.md) | `open` | `docs` | minor | [docs] Self-hosted operations README |
+| [VYQ-42](tasks/VYQ-6/VYQ-42-self-hosted-operations-readme.md) | `done` | `docs` | minor | [docs] Self-hosted operations README |
 
 ## VYQ-7 — F6 — JS SDK
 
