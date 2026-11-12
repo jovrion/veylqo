@@ -8,8 +8,7 @@ Execution index for `work/`. Rules in `work/README.md`.
 
 | State | Tasks |
 |---|---|
-| `open` | 1 |
-| `done` | 40 |
+| `done` | 41 |
 | **total** | **41** |
 
 ## By area
@@ -20,7 +19,7 @@ Execution index for `work/`. Rules in `work/README.md`.
 | `docs` | 3 | 3 |
 | `go` | 27 | 27 |
 | `contract` | 1 | 1 |
-| `js` | 5 | 4 |
+| `js` | 5 | 5 |
 | `ops` | 3 | 3 |
 
 ## VYQ-1 — F0 — Governance and repo foundation
@@ -110,7 +109,7 @@ Execution index for `work/`. Rules in `work/README.md`.
 ## VYQ-7 — F6 — JS SDK
 
 - File: [epics/VYQ-7-f6-js-sdk.md](epics/VYQ-7-f6-js-sdk.md)
-- Derived status: `in-progress`
+- Derived status: `done`
 
 | Task | State | Area | Priority | Title |
 |---|---|---|---|---|
@@ -118,4 +117,4 @@ Execution index for `work/`. Rules in `work/README.md`.
 | [VYQ-44](tasks/VYQ-7/VYQ-44-veylqo-core-client-share.md) | `done` | `js` | critical | [js] @veylqo/core: client and share() |
 | [VYQ-45](tasks/VYQ-7/VYQ-45-veylqo-element-web-component.md) | `done` | `js` | critical | [js] @veylqo/element vanilla Web Component |
 | [VYQ-46](tasks/VYQ-7/VYQ-46-cdn-bundle.md) | `done` | `js` | major | [js] CDN bundle |
-| [VYQ-47](tasks/VYQ-7/VYQ-47-html-react-vue-svelte-examples.md) | `open` | `js` | minor | [js] html, react, vue, svelte examples |
+| [VYQ-47](tasks/VYQ-7/VYQ-47-html-react-vue-svelte-examples.md) | `done` | `js` | minor | [js] html, react, vue, svelte examples |
