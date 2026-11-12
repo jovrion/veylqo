@@ -8,8 +8,8 @@ Execution index for `work/`. Rules in `work/README.md`.
 
 | State | Tasks |
 |---|---|
-| `done` | 41 |
-| **total** | **41** |
+| `done` | 43 |
+| **total** | **43** |
 
 ## By area
 
@@ -19,8 +19,8 @@ Execution index for `work/`. Rules in `work/README.md`.
 | `docs` | 3 | 3 |
 | `go` | 27 | 27 |
 | `contract` | 1 | 1 |
-| `js` | 5 | 5 |
-| `ops` | 3 | 3 |
+| `js` | 6 | 6 |
+| `ops` | 4 | 4 |
 
 ## VYQ-1 — F0 — Governance and repo foundation
 
@@ -105,6 +105,7 @@ Execution index for `work/`. Rules in `work/README.md`.
 | [VYQ-40](tasks/VYQ-6/VYQ-40-dockerfile-and-compose.md) | `done` | `ops` | major | [ops] Dockerfile and docker-compose |
 | [VYQ-41](tasks/VYQ-6/VYQ-41-ci-e2e-postgres.md) | `done` | `ops` | normal | [ops] CI e2e against Postgres |
 | [VYQ-42](tasks/VYQ-6/VYQ-42-self-hosted-operations-readme.md) | `done` | `docs` | minor | [docs] Self-hosted operations README |
+| [VYQ-50](tasks/VYQ-6/VYQ-50-github-main-branch-rulesets-for-public.md) | `done` | `ops` | major | [ops] GitHub main branch rulesets for public repos |
 
 ## VYQ-7 — F6 — JS SDK
 
@@ -118,3 +119,4 @@ Execution index for `work/`. Rules in `work/README.md`.
 | [VYQ-45](tasks/VYQ-7/VYQ-45-veylqo-element-web-component.md) | `done` | `js` | critical | [js] @veylqo/element vanilla Web Component |
 | [VYQ-46](tasks/VYQ-7/VYQ-46-cdn-bundle.md) | `done` | `js` | major | [js] CDN bundle |
 | [VYQ-47](tasks/VYQ-7/VYQ-47-html-react-vue-svelte-examples.md) | `done` | `js` | minor | [js] html, react, vue, svelte examples |
+| [VYQ-49](tasks/VYQ-7/VYQ-49-github-actions-ci-for-veylqo-js.md) | `done` | `js` | major | [js] GitHub Actions CI for veylqo-js |

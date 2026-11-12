@@ -75,6 +75,8 @@ Tagline: Less URL. More destination.
   on the task in this repo.
 - No commit or push unless the user asks.
   Remote: `git@github.com-unisimon:jovrion/veylqo.git`.
+  `main` is protected. A requested push goes to a branch and a pull
+  request, never a direct push to `main`.
 
 ## Limits
 
