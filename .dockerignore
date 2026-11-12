@@ -1,0 +1,9 @@
+.git
+.github
+.opencode
+work
+docs
+.env
+*.local
+bin
+*.md

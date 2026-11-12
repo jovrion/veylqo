@@ -1,0 +1,59 @@
+# Local self-hosted stack: Postgres and veylqo.
+#
+# The values below are placeholders for a private machine. Replace them
+# before any shared or public host. Do not commit a .env file. The process
+# does not log VEYLQO_DB_URL, keys, or tokens.
+#
+# VEYLQO_ALLOWED_HOSTS is required. It is a comma-separated list of ASCII
+# or punycode hostnames. An empty list fails closed. Only http and https
+# destinations are accepted, and private or loopback hosts are blocked.
+# Public shortening is not an open redirect. example.com lets the process
+# start; set the hosts you actually shorten.
+#
+# VEYLQO_BASE_URL is not read by the process. Setting it has no effect.
+# Short links are served by this listener (default :8080). A short domain
+# in front of it is a reverse-proxy concern, not an application setting.
+#
+# Keys, both required, and they must be distinct:
+#   VEYLQO_PUBLISHABLE_KEY  public shorten credential
+#   VEYLQO_ADMIN_TOKEN      admin credential
+# Override the placeholders in the environment. Do not reuse them.
+#
+# VEYLQO_DB_URL must use the postgres:// scheme (not postgresql://).
+# sslmode=disable matches this Compose Postgres image, which does not
+# terminate TLS. The password is a local placeholder, not a production secret.
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: veylqo
+      POSTGRES_PASSWORD: veylqo
+      POSTGRES_DB: veylqo
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U veylqo -d veylqo"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 5s
+
+  veylqo:
+    build: .
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    stop_grace_period: 20s
+    restart: on-failure
+    environment:
+      VEYLQO_ADDR: ":8080"
+      VEYLQO_DB_URL: postgres://veylqo:veylqo@postgres:5432/veylqo?sslmode=disable
+      VEYLQO_ALLOWED_HOSTS: ${VEYLQO_ALLOWED_HOSTS:-example.com}
+      VEYLQO_PUBLISHABLE_KEY: ${VEYLQO_PUBLISHABLE_KEY:-dev-publishable-key}
+      VEYLQO_ADMIN_TOKEN: ${VEYLQO_ADMIN_TOKEN:-dev-admin-token}
+
+volumes:
+  postgres-data:
