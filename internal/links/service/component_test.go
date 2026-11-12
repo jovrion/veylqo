@@ -199,8 +199,10 @@ func readBody(t *testing.T, resp *http.Response) string {
 	if resp == nil || resp.Body == nil {
 		t.Fatal("nil response")
 	}
-	defer resp.Body.Close()
 	body, err := io.ReadAll(resp.Body)
+	if cerr := resp.Body.Close(); cerr != nil && err == nil {
+		err = cerr
+	}
 	if err != nil {
 		t.Fatal(err)
 	}
