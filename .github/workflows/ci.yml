@@ -4,8 +4,14 @@
 
 name: ci
 
+# A push to a branch that already has a pull request also fires
+# pull_request. Running both doubles every job. Pull requests cover
+# branch updates. Push covers main after merge, where there is no
+# pull request event. Job names stay `test` and `postgres`: those are
+# the required status checks on main.
 on:
   push:
+    branches: [main]
   pull_request:
 
 permissions:

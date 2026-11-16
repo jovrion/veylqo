@@ -16,7 +16,7 @@ work/
 ├── BOARD.md             generated index (make work-board); do not edit by hand
 ├── board.html           visual board (make work-view); git-ignored
 ├── _templates/          epic and task templates
-├── epics/               one file per epic (one phase F0–F6)
+├── epics/               one file per epic (one phase F0–F7)
 └── tasks/<epic-id>/     one file per task, grouped by epic
 ```
 
@@ -78,7 +78,7 @@ updated: 2026-11-09
 id: VYQ-1
 type: epic
 title: "F0 — Governance and repo foundation"
-phase: F0                 # F0|F1|F2|F3|F4|F5|F6
+phase: F0                 # F0|F1|F2|F3|F4|F5|F6|F7
 depends_on: []
 updated: 2026-11-09
 ```

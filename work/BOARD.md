@@ -8,19 +8,20 @@ Execution index for `work/`. Rules in `work/README.md`.
 
 | State | Tasks |
 |---|---|
+| `open` | 8 |
 | `done` | 43 |
-| **total** | **43** |
+| **total** | **51** |
 
 ## By area
 
 | Area | Tasks | Done |
 |---|---|---|
 | `setup` | 2 | 2 |
-| `docs` | 3 | 3 |
-| `go` | 27 | 27 |
-| `contract` | 1 | 1 |
-| `js` | 6 | 6 |
-| `ops` | 4 | 4 |
+| `docs` | 4 | 3 |
+| `go` | 30 | 27 |
+| `contract` | 2 | 1 |
+| `js` | 8 | 6 |
+| `ops` | 5 | 4 |
 
 ## VYQ-1 — F0 — Governance and repo foundation
 
@@ -120,3 +121,19 @@ Execution index for `work/`. Rules in `work/README.md`.
 | [VYQ-46](tasks/VYQ-7/VYQ-46-cdn-bundle.md) | `done` | `js` | major | [js] CDN bundle |
 | [VYQ-47](tasks/VYQ-7/VYQ-47-html-react-vue-svelte-examples.md) | `done` | `js` | minor | [js] html, react, vue, svelte examples |
 | [VYQ-49](tasks/VYQ-7/VYQ-49-github-actions-ci-for-veylqo-js.md) | `done` | `js` | major | [js] GitHub Actions CI for veylqo-js |
+
+## VYQ-51 — F7 — Private attribution and declarative SDK
+
+- File: [epics/VYQ-51-f7-private-attribution-and-declarative-sdk.md](epics/VYQ-51-f7-private-attribution-and-declarative-sdk.md)
+- Derived status: `open`
+
+| Task | State | Area | Priority | Title |
+|---|---|---|---|---|
+| [VYQ-52](tasks/VYQ-51/VYQ-52-adrs-0012-0014-for-prefix-links.md) | `open` | `docs` | critical | [docs] ADRs 0012-0014 for prefix links, attribution, and the declarative SDK |
+| [VYQ-53](tasks/VYQ-51/VYQ-53-openapi-prefix-links-shares-and-attribution.md) | `open` | `contract` | critical | [contract] OpenAPI prefix links, shares, and attribution stats |
+| [VYQ-54](tasks/VYQ-51/VYQ-54-prefix-8-character-codes-and-attribution.md) | `open` | `go` | critical | [go] Prefix, 8-character codes, and attribution event |
+| [VYQ-55](tasks/VYQ-51/VYQ-55-attribution-migrations-and-adapters.md) | `open` | `go` | critical | [go] Attribution migrations and adapters |
+| [VYQ-56](tasks/VYQ-51/VYQ-56-prefix-redirect-share-events-and-stats.md) | `open` | `go` | critical | [go] Prefix redirect, share events, and stats handlers |
+| [VYQ-57](tasks/VYQ-51/VYQ-57-private-multi-tenant-operations.md) | `open` | `ops` | major | [ops] Private multi-tenant operations |
+| [VYQ-58](tasks/VYQ-51/VYQ-58-core-prefix-urls-share-recording-and.md) | `open` | `js` | critical | [js] Core prefix URLs, share recording, and debug logs |
+| [VYQ-59](tasks/VYQ-51/VYQ-59-declarative-data-veylqo-link-binding-and.md) | `open` | `js` | critical | [js] Declarative data-veylqo-link binding and examples |

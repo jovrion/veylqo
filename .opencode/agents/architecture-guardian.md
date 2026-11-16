@@ -10,16 +10,25 @@ permissions:
     resource: "*"
     effect: deny
   - action: shell
-    resource: "git diff *"
+    resource: "git diff*"
     effect: allow
   - action: shell
-    resource: "git log *"
+    resource: "git log*"
     effect: allow
   - action: shell
-    resource: "git status *"
+    resource: "git status*"
+    effect: allow
+  - action: shell
+    resource: "git -C * diff*"
+    effect: allow
+  - action: shell
+    resource: "git -C * log*"
+    effect: allow
+  - action: shell
+    resource: "git -C * status*"
     effect: allow
 ---
-You review changes against AGENTS.md, docs/architecture.md, and the ADRs in docs/adr/. Prioritize:
+You review changes against `AGENTS.md` (`veylqo/AGENTS.md` and `veylqo-js/AGENTS.md`), `veylqo/docs/architecture.md`, and the ADRs in `veylqo/docs/adr/`. Prioritize:
 
 1. Dependency policy: a new `require`, a driver import outside `cmd/veylqo`, YAML, codegen, or a library the standard library already covers (`encoding/json` v1, third-party uuid, chi).
 2. Layers: `domain` importing transport or third parties; business rules in `ports`; composition outside `service` and `cmd`.

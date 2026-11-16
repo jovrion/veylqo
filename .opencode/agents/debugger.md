@@ -10,13 +10,22 @@ permissions:
     resource: "*"
     effect: ask
   - action: shell
-    resource: "git diff *"
+    resource: "git diff*"
     effect: allow
   - action: shell
-    resource: "git log *"
+    resource: "git log*"
     effect: allow
   - action: shell
-    resource: "git status *"
+    resource: "git status*"
+    effect: allow
+  - action: shell
+    resource: "git -C * diff*"
+    effect: allow
+  - action: shell
+    resource: "git -C * log*"
+    effect: allow
+  - action: shell
+    resource: "git -C * status*"
     effect: allow
 ---
 You investigate Veylqo incidents with method: impact and blast radius, hypotheses without assuming the cause, signals and commands to verify, safe mitigation, confirmation, prevention.

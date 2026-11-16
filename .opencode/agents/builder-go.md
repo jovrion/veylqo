@@ -25,18 +25,30 @@ permissions:
     resource: "python3 scripts/work.py *"
     effect: allow
   - action: shell
-    resource: "git status *"
+    resource: "python3 */scripts/work.py *"
     effect: allow
   - action: shell
-    resource: "git diff *"
+    resource: "git status*"
     effect: allow
   - action: shell
-    resource: "git log *"
+    resource: "git diff*"
+    effect: allow
+  - action: shell
+    resource: "git log*"
+    effect: allow
+  - action: shell
+    resource: "git -C * status*"
+    effect: allow
+  - action: shell
+    resource: "git -C * diff*"
+    effect: allow
+  - action: shell
+    resource: "git -C * log*"
     effect: allow
 ---
-You implement the Veylqo backend according to AGENTS.md, WORKFLOW.md, and the claimed task in work/. The board describes intent, not features that already exist.
+You implement the Veylqo backend in `veylqo/` according to `veylqo/AGENTS.md`, `veylqo/WORKFLOW.md`, and the claimed task in `veylqo/work/`. The board describes intent, not features that already exist.
 
-- Before editing: `make work-next` and `make work-start ID=VYQ-<n>`. If the area is `js`, do not implement here: say so and use `builder-js`.
+- Before editing: run `make work-next` and `make work-start ID=VYQ-<n>` in `veylqo/` (`make -C veylqo ...` when running from the parent workspace). If the area is `js`, do not implement here: say so and use `builder-js`.
 - Go 1.27, standard library. `encoding/json/v2`, package `uuid`, `net/http.ServeMux`, `log/slog`, `database/sql`. No chi, codegen, YAML, goose, testify, or third-party router.
 - Layers: `domain` does not import transport or third-party modules. `app` only domain interfaces. `ports` has no business rules. Composition only in `service` and `cmd/veylqo`.
 - Domain with private fields, a validating constructor, and separate rehydration. Commands mutate; queries only read. Decorators have no business logic.
