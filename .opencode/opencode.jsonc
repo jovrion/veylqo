@@ -5,10 +5,15 @@
   "permissions": [
     { "action": "shell", "resource": "*", "effect": "ask" },
     { "action": "shell", "resource": "make work-*", "effect": "allow" },
+    { "action": "shell", "resource": "make -C * work-*", "effect": "allow" },
     { "action": "shell", "resource": "python3 scripts/work.py *", "effect": "allow" },
-    { "action": "shell", "resource": "git status *", "effect": "allow" },
-    { "action": "shell", "resource": "git diff *", "effect": "allow" },
-    { "action": "shell", "resource": "git log *", "effect": "allow" }
+    { "action": "shell", "resource": "python3 */scripts/work.py *", "effect": "allow" },
+    { "action": "shell", "resource": "git status*", "effect": "allow" },
+    { "action": "shell", "resource": "git diff*", "effect": "allow" },
+    { "action": "shell", "resource": "git log*", "effect": "allow" },
+    { "action": "shell", "resource": "git -C * status*", "effect": "allow" },
+    { "action": "shell", "resource": "git -C * diff*", "effect": "allow" },
+    { "action": "shell", "resource": "git -C * log*", "effect": "allow" }
   ],
   "agents": {
     "plan": { "disabled": true },

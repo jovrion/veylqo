@@ -90,7 +90,7 @@ board command.
 | --- | --- |
 | `work/README.md` | Tracking rules (statuses, transitions, front matter) |
 | `work/BOARD.md` | Generated board — progress by phase and area |
-| `work/epics/`, `work/tasks/` | Epics (F0–F6) and `VYQ-<n>` tasks |
+| `work/epics/`, `work/tasks/` | Epics (F0–F7) and `VYQ-<n>` tasks |
 | `AGENTS.md` | Agent instructions (architecture, verification, limits) |
 | `CLAUDE.md` | Imports `AGENTS.md`; does not duplicate rules |
 | `docs/architecture.md` | Design: layers, flows, security (VYQ-10) |

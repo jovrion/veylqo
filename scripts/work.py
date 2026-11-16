@@ -26,7 +26,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATUSES = ["open", "in-progress", "blocked", "done"]
 PRIORITIES = ["critical", "major", "normal", "minor"]
 AREAS = ["setup", "docs", "go", "contract", "js", "ops"]
-PHASE_ORDER = ["F0", "F1", "F2", "F3", "F4", "F5", "F6"]
+PHASE_ORDER = ["F0", "F1", "F2", "F3", "F4", "F5", "F6", "F7"]
 
 TASK_REQUIRED = ["id", "type", "title", "status", "priority", "area",
                  "epic", "depends_on", "blocked_reason", "updated"]
